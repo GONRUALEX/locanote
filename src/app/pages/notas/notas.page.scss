@@ -1,0 +1,171 @@
+.item-background-color {
+    border: 1px solid #92032E;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(92, 1, 32, 0.8);
+    margin: 5px;
+    opacity:0.8;
+}
+
+.item-background-color:hover {
+    border: 1px solid #5e011d;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(37, 0, 13, 0.8);
+
+}
+
+ion-item-option {
+    min-width: 80px;
+    --ion-item-background: none;
+    -webkit-animation: AnimationName 50s ease infinite;
+    -moz-animation: AnimationName 50s ease infinite;
+    -o-animation: AnimationName 50s ease infinite;
+    animation: AnimationName 50s ease infinite;
+    padding-bottom: 2px;
+    padding-top: 5px;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 5px;
+    margin-bottom: 1px;
+    color: #ffffff;
+    border-bottom: none;
+    background-image: url('../../../assets/images/metalizado.avif');
+    background-blend-mode: overlay;
+}
+
+.trash {
+    background-color: #92032E;
+}
+
+.trash:active {
+    background-color: #e20606;
+}
+
+.edit {
+    background-color: #0e67ec;
+}
+
+.edit:active {
+    background-color: #083c8a;
+}
+
+ion-list {
+    background-color: whitesmoke;
+}
+
+p {
+    color: #000000;
+}
+
+.ubication {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(255, 255, 255);
+}
+
+span {
+    color: #ffffff;
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.container-no-results {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    color: #92032E;
+}
+
+.no-result {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    color: rgb(240, 2, 180);
+}
+
+ion-refresher {
+    z-index: 9000;
+    --color: #fff;
+    -webkit-animation: AnimationName 50s ease infinite;
+    -moz-animation: AnimationName 50s ease infinite;
+    -o-animation: AnimationName 50s ease infinite;
+    animation: AnimationName 50s ease infinite;
+    padding-bottom: 2px;
+    padding-top: 5px;
+    border-top: none;
+    border-radius: 5px;
+    margin-bottom: 1px;
+
+    background-color: #92032E;
+    background-image: url('../../../assets/images/metalizado.avif');
+    background-blend-mode: overlay;
+}
+
+ion-fab-button {
+    --color: #92032E;
+    border: 1px solid #92032E;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px rgba(92, 1, 32, 0.8);
+    margin: 5px;
+    opacity:0.8;
+    --background: white;
+    --background-activated: whitesmoke;
+
+}
+
+.button-clear {
+    --color: #92032E;
+}
+
+
+ion-searchbar {
+    .searchbar-search-icon.sc-ion-searchbar-ios.ios.hydrated {
+        margin-left: 0 !important;
+    }
+
+    .searchbar-input.sc-ion-searchbar-ios {
+        padding-left: 20px !important;
+    }
+
+}
+
+.itemform {
+    border: 1px solid #92032E;
+    border-radius: 5px;
+    height: 45px;
+    margin-left: 10px;
+    box-shadow: 0px 0px 10px rgba(92, 1, 32, 0.8);
+    margin-right: 10px;
+    margin-bottom: 20px;
+    opacity: 1 !important;
+}
+
+.closePopover {
+    height: 50px;
+}
+
+
+.lime {
+    color: #00a1e6;
+    display: flex;
+    align-items: center;
+}
+
+.lightblue {
+    color: cadetblue;
+}
+
+ion-icon {
+    font-size: 30px;
+}
+
+.title {
+    color:#00A1A6;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}

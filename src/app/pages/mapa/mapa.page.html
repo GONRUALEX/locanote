@@ -1,0 +1,48 @@
+<ion-header [translucent]="true"
+	class="ion-no-border"
+	mode="ios">
+	<ion-toolbar>
+		<ion-title>
+			{{'map.title' | translate}}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button (click)="findButton=!findButton"
+				fill="clear">
+				<ion-icon slot="icon-only"
+					name="funnel-outline"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<div *ngIf="findButton">
+		<ion-searchbar [placeholder]="translate.instant('notes.search.by.title')"
+			[debounce]="1000"
+			(ionInput)="findByTitle($event)"
+			class="custom"></ion-searchbar>
+		<form [formGroup]="dateForm">
+			<ion-item class="itemform">
+				<ion-input [clearInput]="true"
+					[placeholder]="translate.instant('notes.search.by.date')"
+					readonly="true"
+					style="text-align:left; color:#92032E"
+					value="{{ (dateForm.value.dateNote) | dateLanguages : true}}"
+					type="text"
+					id="dateTime"></ion-input>
+					<ion-icon style="color:#92032E;z-index:900;" *ngIf="findDate!=null" slot="end" name="trash" (click)="clearDate()"></ion-icon>
+				<ion-popover trigger="dateTime"
+					id="popover-bottom"
+					show-backdrop="false"
+					side="top"
+					alignment="start"
+					size="cover">
+					<ng-template>
+						<ion-datetime color="tertiary" (ionChange)="findByDate($event)"  show-default-buttons="true" show-default-time-label="false" [cancelText]="translate.instant('datetime.cancel')" [doneText]="translate.instant('datetime.suscess')" presentation="date" [locale]="locale" first-day-of-week="1" 
+						formControlName="dateNote" ></ion-datetime>
+					</ng-template>
+				</ion-popover>
+			</ion-item>
+		</form>
+	</div>
+</ion-header>
+<ion-content [fullscreen]="true">
+	<div id="map"></div>
+</ion-content>

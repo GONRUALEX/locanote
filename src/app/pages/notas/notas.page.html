@@ -1,0 +1,130 @@
+<ion-header [translucent]="true"
+	class="ion-no-border"
+	mode="ios">
+	<ion-toolbar>
+		<ion-buttons *ngIf="data.length!=0">
+			<ion-button (click)="clearAll()"
+				slot="start"
+				class="button-clear">
+				{{'notas.clear' | translate}}
+			</ion-button>
+		</ion-buttons>
+		<ion-title>
+			{{'notes.title' | translate}}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button  (click)="findButton=!findButton" fill="clear">
+			  <ion-icon slot="icon-only" name="funnel-outline"></ion-icon>
+			</ion-button>
+		  </ion-buttons>
+	</ion-toolbar>
+	
+	<div *ngIf="findButton">
+	<ion-searchbar [placeholder]="translate.instant('notes.search.by.title')"
+		[debounce]="1000"
+		(ionInput)="findByTitle($event)"
+		class="custom"></ion-searchbar>
+	<form [formGroup]="dateForm">
+		<ion-item class="itemform">
+			<ion-input [clearInput]="true"
+				[placeholder]="translate.instant('notes.search.by.date')"
+				readonly="true"
+				style="text-align:left; color:#92032E"
+				value="{{ (dateForm.value.dateNote) | dateLanguages : true }}"
+				type="text"
+				id="dateTimeFind"> </ion-input>
+			<ion-icon style="color:#92032E"
+				name="calendar-clear-outline"
+				slot="start"></ion-icon>
+				<ion-icon style="color:#92032E;z-index:900;" *ngIf="findDate!=null" slot="end" name="trash" (click)="clearDate()"></ion-icon>
+			<ion-popover  side="top" alignment="start" id="popover-bottom"
+				trigger="dateTimeFind"
+				show-backdrop="false"
+				size="cover">
+				<ng-template>
+					<ion-datetime color="tertiary" (ionChange)="findByDate($event)"  show-default-buttons="true" show-default-time-label="false" [cancelText]="translate.instant('datetime.cancel')" [doneText]="translate.instant('datetime.suscess')" presentation="date" [locale]="locale" first-day-of-week="1" 
+						formControlName="dateNote" ></ion-datetime>
+				</ng-template>
+			</ion-popover>
+		</ion-item>
+	</form>
+	</div>
+</ion-header>
+<ion-content [fullscreen]="true"
+	mode="ios">
+	<ion-fab vertical="bottom"
+		horizontal="end"
+		slot="fixed">
+		<ion-fab-button (click)="openModal()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<ion-refresher (ionRefresh)="doRefresh($event)"
+		slot="fixed">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<ion-list #list
+		*ngIf="data.length != 0; else imag"
+		lines="none">
+		<ion-item-sliding *ngFor="let note of data">
+			<ion-item
+				(click)="openModalInfo(note)"
+				class="item-background-color">
+				<ion-label>
+					<h3 class="title">
+						<ion-icon name="trail-sign-outline" style="padding-right: 15px;"></ion-icon> {{note.title  | numberLetters:20 | titlecase}}
+					</h3>
+					<p class="lightblue">
+						{{note.description  | numberLetters:30 | titlecase}}
+					</p>
+          <p class="lime" *ngIf="note.dateNote!=null">
+            <ion-icon name="calendar-outline" style="padding-right: 15px;"></ion-icon> {{note.dateNote | dateLanguages : false }}
+          </p>
+				</ion-label>
+
+				<ion-label slot="end"
+					text-right *ngIf="note.latitude != ''">
+					<div class="ubication">
+						<mat-icon style="color: dodgerblue;">location_on</mat-icon>
+						<span>
+							<!--{{note.dateNote | dateLanguages }}-->
+						</span>
+					</div>
+
+				</ion-label>
+			</ion-item>
+			<ion-item-options side="start">
+				<ion-item-option (click)="deleteNote(note.id)"
+					class="trash">
+					<ion-icon slot="icon-only"
+						name="trash"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+			<ion-item-options side="end">
+				<ion-item-option (click)="editNote(note)"
+					class="edit">
+					<ion-icon slot="icon-only"
+						name="create-outline"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+
+		</ion-item-sliding>
+
+	</ion-list>
+	<ng-template #imag>
+		<div class="container-no-results">
+			<mat-icon>swipe_down_alt</mat-icon>
+			<h1>
+				{{'notas.refresh' | translate}}
+			</h1>
+			<img width="100%"
+				src="../../../assets/images/box.webp">
+			<div class="no-result">
+				<h3>
+					{{'notas.no-result' | translate}}
+				</h3>
+			</div>
+		</div>
+	</ng-template>
+
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="url"
+				(click)="exit(false)"></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{"modal.info.title"|translate}}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+		<div>
+      <div  class="itemform">
+				<ion-label class="labelClass"><ion-icon name="trail-sign-outline"></ion-icon>{{ 'modal.title' | translate }}</ion-label>
+        <div class="description">{{valuesForm.title}}</div>
+			</div>
+      <div  class="itemform">
+				<ion-label  class="labelClass"><ion-icon name="document-text-outline"></ion-icon>{{ 'modal.description' | translate }}</ion-label>
+        <div class="description">{{valuesForm.description}}</div>
+      </div>
+      <div  class="itemform" *ngIf="valuesForm.place!='';else notPlace">
+				<ion-label  class="labelClass"><ion-icon  name="navigate-circle-outline"></ion-icon>{{ 'modal.place' | translate }}</ion-label>
+        <div class="description">{{valuesForm.place}}</div>
+      </div>
+      <ng-template #notPlace>
+        <div class="itemform">
+          <ion-label  class="labelClass"><ion-icon  name="navigate-circle-outline"></ion-icon>{{ 'modal.place' | translate }}</ion-label>
+         <div class="description">
+          {{ 'modal.info.place.not.place' | translate }}
+
+         </div>
+         </div>
+        </ng-template>
+        <div  class="itemform">
+          <ion-label  class="labelClass"> <ion-icon name="calendar-outline"></ion-icon> {{ 'modal.date.note' | translate }}</ion-label>
+          <div class="description">{{valuesForm.dateNote | dateLanguages : false}}</div>
+        </div>
+    </div>
+ </ion-content>

@@ -1,0 +1,108 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="url"
+				(click)="exit(false)"></ion-back-button>
+		</ion-buttons>
+		<ion-title *ngIf="!edit">
+			{{"modal.add.note"|translate}}
+		</ion-title>
+		<ion-title *ngIf="edit">
+			{{"modal.edit.note"|translate}}
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-list>
+		<form [formGroup]="mainForm"
+			(ngSubmit)="storeData()">
+			<ion-input id="id"
+				formControlName="id"
+				class="form-control"
+				type="number"
+				name="id"
+				style="display:none"></ion-input>
+			<ion-item class="itemform">
+				<ion-label position="floating"
+					class="lableclass">
+					{{ 'modal.title' | translate }}
+				</ion-label>
+				<ion-input id="title"
+					formControlName="title"
+					class="form-control"
+					type="text"
+					name="title"
+					required></ion-input>
+				<span *ngIf="mainForm.controls['title'].invalid &&
+					(mainForm.controls['title'].dirty || mainForm.controls['title'].touched)">
+					{{"mapa.title.required"|translate}}
+				</span>
+
+			</ion-item>
+			<ion-item class="itemform">
+				<ion-label position="floating"
+					class="lableclass">
+					{{ 'modal.description' | translate }}
+				</ion-label>
+				<ion-textarea formControlName="description"
+					class="form-control"
+					rows="10"
+					type="text"
+					required>
+				</ion-textarea>
+				<span *ngIf="mainForm.controls['description'].invalid &&
+				(mainForm.controls['description'].dirty || mainForm.controls['description'].touched)">
+					{{"mapa.description.required"|translate}}
+				</span>
+
+			</ion-item>
+			<ion-item class="itemform">
+				<ion-label position="floating"
+					class="lableclass">
+					{{ 'modal.place' | translate }}
+				</ion-label>
+				<ion-input formControlName="place"
+					class="form-control"
+					type="text">
+				</ion-input>
+			</ion-item>
+			<ion-item class="itemform">
+				<ion-label position="floating"
+					class="lableclass">
+					{{ 'modal.date.note' | translate }}
+				</ion-label>
+				<ion-input readonly="true" value="{{ (mainForm.value.dateNote) | dateLanguages : false }}"
+					type="text"
+					id="date"></ion-input>
+				<ion-popover trigger="date" id="popover-bottom" show-backdrop="false"  side="top" alignment="start"
+					size="cover">
+					<ng-template>
+						<ion-datetime formControlName="dateNote" [locale]="locale" first-day-of-week="1" show-default-buttons="true" show-default-time-label="false" [cancelText]="translate.instant('datetime.cancel')" [doneText]="translate.instant('datetime.suscess')" [locale]="locale"></ion-datetime>
+					</ng-template>
+				</ion-popover>
+			</ion-item>
+
+			<ion-row>
+				<ion-col>
+					<ion-button *ngIf="!edit"
+						[disabled]="mainForm.invalid"
+						type="submit"
+						class="buttonAdd"
+						shape="full"
+						expand="block">
+						{{"mapa.place.add.note"|translate}}
+					</ion-button>
+					<ion-button *ngIf="edit"
+						[disabled]="mainForm.invalid"
+						type="submit"
+						class="buttonAdd"
+						shape="full"
+						expand="block">
+						{{"mapa.place.edit.note"|translate}}
+					</ion-button>
+				</ion-col>
+			</ion-row>
+		</form>
+	</ion-list>
+</ion-content>

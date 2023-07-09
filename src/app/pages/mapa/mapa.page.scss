@@ -1,0 +1,61 @@
+#map { height: 100%; }
+
+.marker{
+    background-color:red;
+    color: blue;
+}
+
+
+ion-searchbar {
+    .searchbar-search-icon.sc-ion-searchbar-ios.ios.hydrated{
+      margin-left: 0 !important;
+    }
+    .searchbar-input.sc-ion-searchbar-ios {
+      padding-left: 20px !important;
+    }
+
+  }
+
+ion-icon{
+  color:#92032E;
+}
+
+.itemform{
+    border: 1px solid #92032E;
+    border-radius:5px;
+    height: 45px;
+    margin-left: 10px;
+    box-shadow: 0px 0px 10px rgba(92, 1, 32, 0.8);
+    margin-right: 10px;
+    margin-bottom: 20px;
+    opacity:1 !important;
+}
+
+.ion-datetime-picker {
+  .calendar .day {
+    &:hover, &.activated, &.today:hover, &.today.activated {
+      background-color: #bdf;
+    }
+    &.today {
+      background-color: #e4e4e4;
+    }
+    &.selected, &.selected:hover, &.selected.activated {
+      background-color: #387ef5;
+      color: white;
+    }
+    &.disabled, &.disabled:hover, &.disabled.activated {
+      background-color: #ccc;
+    }
+  }
+  .month-year .item-input input.ng-invalid {
+    background-color: #ffe4ea;
+  }
+  .time {
+    .colon {
+      color: #999;
+    }
+    .item-input input.ng-invalid {
+      background-color: #ffe4ea;
+    }
+  }
+}

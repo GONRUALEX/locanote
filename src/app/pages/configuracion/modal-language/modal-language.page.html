@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  [defaultHref]="'/tabs/configuracion'" (click)="exit(false)"
+        ></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{'config.language.title' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list #list  lines="none">
+    <ion-radio-group  [value]="language"  (ionChange)="change($event)">
+      <ion-item class="item-background-color" *ngFor="let language of languages">
+        <ion-radio  [value]="language.code" color="secondary">{{language.name}}</ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>
