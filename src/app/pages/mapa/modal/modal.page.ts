@@ -26,6 +26,7 @@ constructor(private modalCtrl: ModalController,
   private utils: UtilsService,
   public translate: TranslateService) { }
 
+  
 ngOnInit() {
   this.locale = (this.utils.locales.filter(element => {
     return element.defaultLang == this.translate.getDefaultLang() ? element : "";

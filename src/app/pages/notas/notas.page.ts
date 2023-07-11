@@ -86,17 +86,17 @@ export class NotasPage implements OnInit {
         this.deleteNote(-1);
       }
     })
-   // this.utils.presentLoading(this.translate.instant('notas.loading'))
     this.db.dbState().subscribe((res) => {
       if (res) {
         this.db.fetchNotes().subscribe(item => {
           console.log("datos recuperados del note", item)
           this.dataInitial = item;
           this.find();
-          setTimeout(() => { this.utils.loadingDismiss(); }, 2000);
+          this.utils.loadingDismiss();
         })
       }
     });
+    this.utils.presentLoading(this.translate.instant('notas.loading'));
     setTimeout(()=>{this.db.getNotes()},3000);
     this.dataInitial = [{"title": 'dfdfsf',
     "description":'sdfsdf asd f sadfsa dfsa dfsad fasdf sad fsadf sadfsadfasdfsadfasdfasd  sa dfads fsad asd fsad fsad fsadsdfsdf',
@@ -117,6 +117,11 @@ export class NotasPage implements OnInit {
     "latitude": '',
     "dateNote": new Date()}]
     this.find();
+  }
+
+  ionViewWillEnter(){
+    console.log("ionviewvillenter")
+    this.db.getNotes();
   }
 
   clearAll() {

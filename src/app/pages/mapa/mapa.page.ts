@@ -81,6 +81,15 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
     this.dateForm = this.formBuilder.group({
       dateNote: new FormControl('', [])
     })
+    this.db.dbState().subscribe((res) => {
+      if (res) {
+        this.db.fetchNotes().subscribe(item => {
+          console.log("datos recuperados del note", item)
+          this.dataInitial = item;
+          this.find();
+        })
+      }
+    });
     setTimeout(() => {
       this.map.on("click", (e) => {
         this.notes = {
@@ -96,16 +105,13 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
 
         });
       });
-      this.db.fetchNotes().subscribe(item => {
-        console.log(this.data, "datos recuperados")
-        this.dataInitial = item;
-      })
-      this.db.getNotes(); 
-      this.refreshMap();
-      this.showMarkers();
     }, 2000);
+    setTimeout(()=>{this.refreshMap()},3000);
   }
-
+  ionViewWillEnter(){
+    console.log("ionviewvillenter")
+    this.refreshMap();
+  }
   ionViewDidEnter() {
     //this.showMarkers();
   }
@@ -118,7 +124,6 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
   refreshMap(){
   this.clearMarkers();
   this.db.getNotes();
-  setTimeout(()=>{this.find()},1000);
 }
   showMarkers() {
     //this.data = [{ latitude: "41.5044991", longitude: "2.3951893", description: "Esto es la descripción del la nota que hemos dicho", title: "Titulo de la nota que hemos mencionado", place: "Y este sería le lugar" },]
@@ -134,8 +139,7 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
         newPoint.longitude = e.target._latlng.lng;
         this.editNote(point).then((markersEdit: boolean) => {
           console.log(markersEdit, "markers edit ")
-          this.refreshMap();
-          this.showMarkers();
+         this.refreshMap();
         });
       }).on('dragstart', (e) => {
        // this.keyFrameState = 'active'
@@ -231,7 +235,6 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
       ).then((data: any) => {
         if (data.data.status) {
           this.refreshMap();
-          this.showMarkers();
           resolve(true);
         } else {
           resolve(false);
@@ -275,7 +278,6 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
     //this.keyFrameState = 'inactive';
     this.byTitle();
     this.byDate();
-    this.refreshMap();
     this.showMarkers();
    // setTimeout(() => { this.keyFrameState = 'active'; }, 500);
 
