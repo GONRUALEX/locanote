@@ -41,15 +41,24 @@
 
 			</ion-item>
 			<ion-item class="itemform">
-				<ion-label position="floating"
+				<ion-label (click)="selectImage()"
+					position="floating"
 					class="lableclass">
 					{{ 'modal.description' | translate }}
 				</ion-label>
+				<div class="containerImg">
+					<ng-container *ngFor="let photo of photos; index as position">
+						<ion-img [src]="'data:image/jpeg;base64,'+ photo.userPhoto.data">
+
+						</ion-img>
+					</ng-container>
+				</div>
 				<ion-textarea formControlName="description"
 					class="form-control"
 					rows="10"
 					type="text"
-					required>
+					required><ion-icon (click)="selectImage()"
+					name="image-outline"></ion-icon>
 				</ion-textarea>
 				<span *ngIf="mainForm.controls['description'].invalid &&
 				(mainForm.controls['description'].dirty || mainForm.controls['description'].touched)">
@@ -72,13 +81,25 @@
 					class="lableclass">
 					{{ 'modal.date.note' | translate }}
 				</ion-label>
-				<ion-input readonly="true" value="{{ (mainForm.value.dateNote) | dateLanguages : false }}"
+				<ion-input readonly="true"
+					value="{{ (mainForm.value.dateNote) | dateLanguages : false }}"
 					type="text"
 					id="date"></ion-input>
-				<ion-popover trigger="date" id="popover-bottom" show-backdrop="false"  side="top" alignment="start"
+				<ion-popover trigger="date"
+					id="popover-bottom"
+					show-backdrop="false"
+					side="top"
+					alignment="start"
 					size="cover">
 					<ng-template>
-						<ion-datetime formControlName="dateNote" [locale]="locale" first-day-of-week="1" show-default-buttons="true" show-default-time-label="false" [cancelText]="translate.instant('datetime.cancel')" [doneText]="translate.instant('datetime.suscess')" [locale]="locale"></ion-datetime>
+						<ion-datetime [locale]="locale"
+							[cancelText]="translate.instant('datetime.cancel')"
+							[doneText]="translate.instant('datetime.suscess')"
+							[locale]="locale"
+							formControlName="dateNote"
+							first-day-of-week="1"
+							show-default-buttons="true"
+							show-default-time-label="false"></ion-datetime>
 					</ng-template>
 				</ion-popover>
 			</ion-item>

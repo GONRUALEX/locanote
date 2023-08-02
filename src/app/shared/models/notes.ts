@@ -1,3 +1,5 @@
+import { Photos } from "./photo";
+
 export interface Notes {
     id?: number;
     title?: string;
@@ -6,4 +8,5 @@ export interface Notes {
     longitude?: string;
     latitude?: string;
     dateNote?: Date;
+    photos?: Photos[];
 }

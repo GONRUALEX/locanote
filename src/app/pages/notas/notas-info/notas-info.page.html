@@ -9,21 +9,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ng-container *ngIf="showImg">
+    <div class="close"><mat-icon (click)="hideImg()">clear</mat-icon></div>
+    <ion-img class="showImg" [src]="'data:image/jpeg;base64,'+ imageShow"></ion-img>
+  </ng-container>
 		<div>
-      <div  class="itemform">
+      <div  class="itemform"  [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
 				<ion-label class="labelClass"><ion-icon name="trail-sign-outline"></ion-icon>{{ 'modal.title' | translate }}</ion-label>
         <div class="description">{{valuesForm.title}}</div>
 			</div>
-      <div  class="itemform">
+      <div  class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
 				<ion-label  class="labelClass"><ion-icon name="document-text-outline"></ion-icon>{{ 'modal.description' | translate }}</ion-label>
+        <div class="containerImg">
+          <ng-container *ngFor="let photo of valuesForm.photos; index as position">
+						<ion-img [src]="'data:image/jpeg;base64,'+ photo.userPhoto.data" (click)="showImage(photo.userPhoto.data)">
+						</ion-img>
+					</ng-container>
+				</div>
         <div class="description">{{valuesForm.description}}</div>
       </div>
-      <div  class="itemform" *ngIf="valuesForm.place!='';else notPlace">
+      <div  class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}"  *ngIf="valuesForm.place!='';else notPlace">
 				<ion-label  class="labelClass"><ion-icon  name="navigate-circle-outline"></ion-icon>{{ 'modal.place' | translate }}</ion-label>
         <div class="description">{{valuesForm.place}}</div>
       </div>
       <ng-template #notPlace>
-        <div class="itemform">
+        <div class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
           <ion-label  class="labelClass"><ion-icon  name="navigate-circle-outline"></ion-icon>{{ 'modal.place' | translate }}</ion-label>
          <div class="description">
           {{ 'modal.info.place.not.place' | translate }}
@@ -31,7 +41,7 @@
          </div>
          </div>
         </ng-template>
-        <div  class="itemform">
+        <div  class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
           <ion-label  class="labelClass"> <ion-icon name="calendar-outline"></ion-icon> {{ 'modal.date.note' | translate }}</ion-label>
           <div class="description">{{valuesForm.dateNote | dateLanguages : false}}</div>
         </div>

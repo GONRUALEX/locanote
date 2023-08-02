@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonList, ModalController, ToastController } from '@ionic/angular';
+import { IonList, ModalController, Platform, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core'
 import { DataBaseService } from 'src/app/core/services/data-base.service';
 import { Notes } from 'src/app/shared/models/notes';
@@ -16,6 +16,12 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 import { ModalPage } from '../mapa/modal/modal.page';
 import { BackgroundTaskService } from 'src/app/core/services/background-task.service';
 import { NotasInfoPage } from './notas-info/notas-info.page';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Capacitor } from '@capacitor/core';
+import { Photos } from 'src/app/shared/models/photo';
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-notas',
   templateUrl: 'notas.page.html',
@@ -54,6 +60,8 @@ import { NotasInfoPage } from './notas-info/notas-info.page';
     ]),]*/
 })
 export class NotasPage implements OnInit {
+  public photos: Photos[] = [];
+  private PHOTO_STORAGE: string = 'photos';
   @ViewChild('list') list: IonList;
   @ViewChild('popover') popover;
   findButton:boolean = false;
@@ -64,6 +72,7 @@ export class NotasPage implements OnInit {
   dataInitial: Notes[] = [];
   data: Notes[] = []
   locale: string;
+  photoss:any[]=[];
   constructor(
     private db: DataBaseService,
     public formBuilder: FormBuilder,
@@ -71,9 +80,13 @@ export class NotasPage implements OnInit {
     private utils: UtilsService,
     public translate: TranslateService,
     private modalCtrl: ModalController,
-    private backgroundTaskService: BackgroundTaskService) { }
+    private backgroundTaskService: BackgroundTaskService,
+    public platform: Platform,
+    private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    this.utils.presentLoading(this.translate.instant('notas.loading'));
     this.locale = (this.utils.locales.filter(element => {
       return element.defaultLang == this.translate.getDefaultLang() ? element : "";
     }))[0].calendarLang;
@@ -96,32 +109,12 @@ export class NotasPage implements OnInit {
         })
       }
     });
-    this.utils.presentLoading(this.translate.instant('notas.loading'));
-    setTimeout(()=>{this.db.getNotes()},3000);
-    this.dataInitial = [{"title": 'dfdfsf',
-    "description":'sdfsdf asd f sadfsa dfsa dfsad fasdf sad fsadf sadfsadfasdfsadfasdfasd  sa dfads fsad asd fsad fsad fsadsdfsdf',
-    "place": 'sdfsdfsdf',
-    "longitude": '23232',
-    "latitude": '232321',
-    "dateNote": null},
-    {"title": 'dfdfsf',
-    "description":'sdfsdfsdfsdf',
-    "place": 'sdfsdfsdf',
-    "longitude": '',
-    "latitude": '',
-    "dateNote": new Date()},
-    {"title": 'dfdfsf',
-    "description":'sdfsdfsdfsdf',
-    "place": 'sdfsdfsdf',
-    "longitude": '',
-    "latitude": '',
-    "dateNote": new Date()}]
-    this.find();
+    setTimeout(()=>{this.db.getNotes()},2000);
   }
 
   ionViewWillEnter(){
     console.log("ionviewvillenter")
-    this.db.getNotes();
+    //this.db.getNotes();
   }
 
   clearAll() {
@@ -143,8 +136,8 @@ export class NotasPage implements OnInit {
 
 
   doRefresh(event: any): void {
-    //this.utils.presentLoading(this.translate.instant('notas.loading'));
-     // this.db.getNotes();
+    this.utils.presentLoading(this.translate.instant('notas.loading'));
+      this.db.getNotes();
       event.target.complete();
   }
 
@@ -203,6 +196,7 @@ export class NotasPage implements OnInit {
 
   find() {
     //this.keyFrameState = 'inactive';
+
     this.byTitle();
     this.byDate();
    // setTimeout(() => { this.keyFrameState = 'active'; }, 500);
@@ -224,4 +218,6 @@ export class NotasPage implements OnInit {
     this.findDate = null;
     this.find();
   }
+
+ 
 }

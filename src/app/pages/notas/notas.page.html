@@ -80,6 +80,13 @@
           <p class="lime" *ngIf="note.dateNote!=null">
             <ion-icon name="calendar-outline" style="padding-right: 15px;"></ion-icon> {{note.dateNote | dateLanguages : false }}
           </p>
+		  <div class="containerImg">
+			  <ng-container *ngFor="let photo of note.photos; index as position">
+				<ion-img [src]="'data:image/jpeg;base64,'+ photo.userPhoto.data">
+
+				</ion-img>
+			</ng-container>
+		  </div>
 				</ion-label>
 
 				<ion-label slot="end"

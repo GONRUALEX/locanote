@@ -169,3 +169,14 @@ ion-icon {
     align-items: center;
     font-size: 18px;
 }
+
+.containerImg{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+ion-img{
+    width: 50%;
+    padding: 15px;
+}
