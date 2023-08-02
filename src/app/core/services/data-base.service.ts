@@ -57,23 +57,17 @@ export class DataBaseService {
   }
 
   async getNotes() {
-    console.log("llamamda agetnotes");
     const items: Notes[] = [];
     const res = await this.storage.executeSql('SELECT * FROM notes', []);
 
-    console.log("resultados del getnotes", res);
-
     if (res.rows.length > 0) {
       for (let inter = 0; inter < res.rows.length; inter++) {
-        console.log("lkjesljfñlksjñlasjfñlasjfñlsajdf", inter);
         const photos = await this.getPhotos(res.rows.item(inter).id);
-        console.log("valor de inter", inter);
 
         const photosData = [];
 
         if (photos.rows.length > 0) {
           for (let i = 0; i < photos.rows.length; i++) {
-            console.log("1");
             photosData.push({
               id: photos.rows.item(i).id,
               userPhoto: {
@@ -82,14 +76,8 @@ export class DataBaseService {
                 data: photos.rows.item(i).data,
               }
             });
-            console.log("typeof", typeof photos.rows.item(i).data )
-            console.log("valor de los photos ", photosData);
           }
         }
-
-        console.log(inter);
-        console.log(res);
-        console.log(res.rows.item(inter));
 
         items.push({
           id: res.rows.item(inter).id,
@@ -102,7 +90,6 @@ export class DataBaseService {
           photos: photosData,
         });
 
-        console.log("items", items);
       }
     }
 
@@ -114,12 +101,8 @@ export class DataBaseService {
     let data = [notes.title, notes.description, notes.place, notes.latitude, notes.longitude, notes.dateNote];
     this.storage.executeSql('INSERT INTO notes (title, description, place, latitude, longitude, datenote) VALUES (?, ?, ?, ?, ?, ?)', data)
       .then(res => {
-        console.log("photos en el insert", notes.photos)
-        console.log("res", res)
         if (notes.photos.length > 0)
-          console.log("ewntra1")
         for (var i = 0; i < notes.photos.length; i++) {
-          console.log("entra2", notes.photos[i].userPhoto.filepath, notes.photos[i].userPhoto.data)
           data = [notes.photos[i].userPhoto.filepath, res.insertId, [notes.photos[i].userPhoto.data]];
           this.storage.executeSql('INSERT INTO photos (filepath, idNotes, data) VALUES (?, ?, ?)', data).then((res) => {
             console.log("guardada foto");
@@ -145,7 +128,6 @@ export class DataBaseService {
   }
 
   async getPhotos(id): Promise<any> {
-    console.log("id que entra ", id)
     return await this.storage.executeSql('SELECT * FROM photos WHERE idNotes = ?', [id]);
 
   }

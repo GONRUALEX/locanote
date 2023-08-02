@@ -102,7 +102,6 @@ export class NotasPage implements OnInit {
     this.db.dbState().subscribe((res) => {
       if (res) {
         this.db.fetchNotes().subscribe(item => {
-          console.log("datos recuperados del note", item)
           this.dataInitial = item;
           this.find();
           this.utils.loadingDismiss();

@@ -184,7 +184,6 @@ export class UtilsService {
   }
 
   urlImg(data:Blob): string{
-    console.log("bloburl", data)
     return URL.createObjectURL(data as Blob);
   }
 

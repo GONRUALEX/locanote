@@ -24,14 +24,12 @@ export class AppComponent {
     this.translate.addLangs(['en_GB', 'ar_ES', 'ca_ES', 'ch_ES', 'es_ES', 'ru_ES', 'uc_ES']);
     this.translate.setDefaultLang('es_ES')
     this.translate.use('es_ES');
-    console.log(this.translate) 
    // translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     //this.translate.use(this.translate.getBrowserLang() || 'es_ES');
   }
 
   //con esta variable sabremos cuando tenemos la geolocalización del usuario
   get isUserReady(){
-    console.log(this.geolocationService.useLocation)
     return this.geolocationService.isUserLocationReady;
   }
 

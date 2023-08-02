@@ -49,7 +49,6 @@ export class ModalPage implements OnInit {
 
   storeData() {
     this.submitted = true;
-    console.log("storedata", this.photos)
     if (this.mainForm.valid) {
       let notes: Notes = {
         id: this.valuesForm.id ? this.valuesForm.id : this.mainForm.value.id,
@@ -61,13 +60,10 @@ export class ModalPage implements OnInit {
         dateNote: this.mainForm.value.dateNote,
         photos: this.photos
       };
-      console.log(notes, "eestas son las notas")
       if (!this.edit) {
-        console.log("añadida nota")
         this.db.addNotes(notes);
 
       } else {
-        console.log("editada nota")
         this.db.updateNotes(this.mainForm.value.id, notes)
       }
       this.exit(true);
@@ -102,7 +98,6 @@ export class ModalPage implements OnInit {
   }
  
   insertImagePathIntoDatabase() {
-    console.log("datos de la imagen", this.imageData)
     this.photos.push({
       id: -1,
       userPhoto: {

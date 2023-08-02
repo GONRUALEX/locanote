@@ -84,7 +84,6 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
     this.db.dbState().subscribe((res) => {
       if (res) {
         this.db.fetchNotes().subscribe(item => {
-          console.log("datos recuperados del note", item)
           this.dataInitial = item;
           this.find();
         })
@@ -109,7 +108,6 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
     setTimeout(()=>{this.refreshMap()},3000);
   }
   ionViewWillEnter(){
-    console.log("ionviewvillenter")
     this.refreshMap();
   }
   ionViewDidEnter() {
@@ -128,17 +126,14 @@ export class MapaPage implements OnInit, AfterViewInit, ViewDidEnter {
   showMarkers() {
     //this.data = [{ latitude: "41.5044991", longitude: "2.3951893", description: "Esto es la descripción del la nota que hemos dicho", title: "Titulo de la nota que hemos mencionado", place: "Y este sería le lugar" },]
     this.data.map((point: any) => {
-      console.log("point ", point)
       this.markers.push(L.marker([Number(point.latitude), Number(point.longitude)], { draggable: true }).addTo(this.map).on('dblclick', (e) => {
         this.editNote(point);
       }).on('dragend', (e) => {
        //this.keyFrameState = 'inactive'
         let newPoint = point;
-        console.log(e, "putnoooooooo")
         newPoint.latitude = e.target._latlng.lat;
         newPoint.longitude = e.target._latlng.lng;
         this.editNote(point).then((markersEdit: boolean) => {
-          console.log(markersEdit, "markers edit ")
          this.refreshMap();
         });
       }).on('dragstart', (e) => {

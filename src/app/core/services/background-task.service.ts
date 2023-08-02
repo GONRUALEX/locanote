@@ -116,7 +116,6 @@ export class BackgroundTaskService {
   findGeolocation(): void {
     this.geolocationService.getGeolocation().then((data) => {
       this.location = data;
-      console.log("estas son las coordenadas,", data)
     });
   }
 

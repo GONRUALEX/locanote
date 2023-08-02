@@ -27,12 +27,9 @@ export class GeolocationService {
   getGeolocation(): Promise<[number, number]> {
     return new Promise((resolve, reject) => {
       this.geolocation.getCurrentPosition().then((resp) => {
-        console.log("geolocation current", resp)
         this.useLocation = [resp.coords.latitude, resp.coords.longitude];
         resolve(this.useLocation);
-        console.log(resp.coords.latitude, resp.coords.longitude)
       }).catch((error) => {
-        console.log("Error en la geolocalización", error)
         reject();
       })
     })

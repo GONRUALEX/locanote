@@ -17,9 +17,7 @@ export class NotasInfoPage implements OnInit {
   constructor(public utils: UtilsService, public translate: TranslateService, private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log("valores del form", this.valuesForm)
     this.valuesForm.photos.map((value)=>{
-      console.log(value.userPhoto.data)
       console.log(value.userPhoto.data)
     })
   }
