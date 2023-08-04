@@ -136,6 +136,14 @@ export class DataBaseService {
     let data = [notes.title, notes.description, notes.place, notes.latitude, notes.longitude, notes.dateNote];
     return this.storage.executeSql(`UPDATE notes SET title = ?, description = ?, place = ?, latitude = ?, longitude= ?, datenote= ? WHERE id = ${id}`, data)
       .then(data => {
+        if (notes.photos.length > 0)
+        for (var i = 0; i < notes.photos.length; i++) {
+          data = [notes.photos[i].userPhoto.filepath, id, [notes.photos[i].userPhoto.data]];
+          console.log("datos update ", data)
+          this.storage.executeSql('INSERT INTO photos (filepath, idNotes, data) VALUES (?, ?, ?)', data).then((res) => {
+            console.log("guardada foto");
+          })
+        }
         this.utils.presentToast(this.translate.instant('message.update.note'));
         this.getNotes();
       }).catch(error => Promise.reject(error));
@@ -147,6 +155,22 @@ export class DataBaseService {
       .then(_ => {
         this.utils.presentToast(this.translate.instant('message.delete.note'));
         this.getNotes();
+      }).catch(error => Promise.reject(error));
+  }
+
+  deletePhoto(id) {
+    let select = 'DELETE FROM photos WHERE id = ?';
+    return (this.storage.executeSql(select, [id]))
+      .then(_ => {
+        console.log("Delete photo id "+id)
+      }).catch(error => Promise.reject(error));
+  }
+
+  async deletePhotos(id) {
+    let select = 'DELETE FROM photos WHERE idNotes = ?';
+    return await (this.storage.executeSql(select, [id]))
+      .then(_ => {
+        console.log("Deletes photos where idNotes "+id)
       }).catch(error => Promise.reject(error));
   }
 }

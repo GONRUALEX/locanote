@@ -10,7 +10,10 @@
 			</ion-button>
 		</ion-buttons>
 		<ion-title>
-			{{'notes.title' | translate}}
+			<div class="titleIon">
+				<ion-label class="notes-title">{{'notes.title' | translate}}</ion-label>
+				<img width="50" src="../../../assets/logo/logo.png"/>
+			</div>
 		</ion-title>
 		<ion-buttons slot="end">
 			<ion-button  (click)="findButton=!findButton" fill="clear">
@@ -77,8 +80,12 @@
 					<p class="lightblue">
 						{{note.description  | numberLetters:30 | titlecase}}
 					</p>
-          <p class="lime" *ngIf="note.dateNote!=null">
-            <ion-icon name="calendar-outline" style="padding-right: 15px;"></ion-icon> {{note.dateNote | dateLanguages : false }}
+          <p class="lime">
+            <ion-icon name="calendar-outline" style="padding-right: 15px;"></ion-icon> 
+			<ion-label *ngIf="note.dateNote!=null;else dateNull">{{note.dateNote | dateLanguages : false }}</ion-label>
+			<ng-template #dateNull>
+				<ion-label >{{'notas.not.date' | translate}}</ion-label>
+			</ng-template>
           </p>
 		  <div class="containerImg">
 			  <ng-container *ngFor="let photo of note.photos; index as position">
@@ -86,6 +93,7 @@
 
 				</ion-img>
 			</ng-container>
+			<label class="not-photo" *ngIf="note.photos.length==0">{{'notas.not.photo' | translate}}</label>
 		  </div>
 				</ion-label>
 

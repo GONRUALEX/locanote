@@ -157,6 +157,7 @@ ion-searchbar {
 
 .lightblue {
     color: cadetblue;
+    padding-left: 46px;
 }
 
 ion-icon {
@@ -173,10 +174,30 @@ ion-icon {
 .containerImg{
     display: flex;
     flex-direction: row;
-    width: 100%;
+   max-height: 80px;
+   min-height: 80px;
 }
 
 ion-img{
     width: 50%;
     padding: 15px;
 }
+
+.not-photo{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    padding-left: 48px;
+}
+
+.titleIon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.notes-title{
+    padding-right: 15px;
+}
+

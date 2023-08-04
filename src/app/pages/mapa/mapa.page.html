@@ -3,7 +3,10 @@
 	mode="ios">
 	<ion-toolbar>
 		<ion-title>
-			{{'map.title' | translate}}
+			<div class="titleIon">
+				<ion-label class="notes-title">{{'map.title' | translate}}</ion-label>
+				<img width="50" src="../../../assets/logo/logo.png"/>
+			</div>
 		</ion-title>
 		<ion-buttons slot="end">
 			<ion-button (click)="findButton=!findButton"

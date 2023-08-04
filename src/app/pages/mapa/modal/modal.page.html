@@ -5,15 +5,26 @@
 				(click)="exit(false)"></ion-back-button>
 		</ion-buttons>
 		<ion-title *ngIf="!edit">
-			{{"modal.add.note"|translate}}
+			<div class="titleIon">
+				<ion-label class="notes-title">{{"modal.add.note"|translate}}</ion-label>
+				<img width="50" src="../../../assets/logo/logo.png"/>
+			</div>
 		</ion-title>
 		<ion-title *ngIf="edit">
-			{{"modal.edit.note"|translate}}
+			<div class="titleIon">
+				<ion-label class="notes-title">{{"modal.edit.note"|translate}}</ion-label>
+				<img width="50" src="../../../assets/logo/logo.png"/>
+			</div>
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+	<ng-container *ngIf="showImg">
+		<div class="delete" (click)="deleteImg()"><mat-icon>delete</mat-icon></div>
+		<div class="close"><mat-icon (click)="hideImg()">clear</mat-icon></div>
+		<ion-img class="showImg" [src]="'data:image/jpeg;base64,'+ imageShow"></ion-img>
+	  </ng-container>
 	<ion-list>
 		<form [formGroup]="mainForm"
 			(ngSubmit)="storeData()">
@@ -23,7 +34,7 @@
 				type="number"
 				name="id"
 				style="display:none"></ion-input>
-			<ion-item class="itemform">
+			<ion-item class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
 				<ion-label position="floating"
 					class="lableclass">
 					{{ 'modal.title' | translate }}
@@ -40,33 +51,35 @@
 				</span>
 
 			</ion-item>
-			<ion-item class="itemform">
+			<div class="containerImg">
+				<ng-container *ngFor="let photo of photos; index as position">
+					<ion-img [src]="'data:image/jpeg;base64,'+ photo.userPhoto.data" (click)="showImage(photo)">
+
+					</ion-img>
+				</ng-container>
+			</div>
+			<ion-item class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
 				<ion-label (click)="selectImage()"
 					position="floating"
 					class="lableclass">
 					{{ 'modal.description' | translate }}
 				</ion-label>
-				<div class="containerImg">
-					<ng-container *ngFor="let photo of photos; index as position">
-						<ion-img [src]="'data:image/jpeg;base64,'+ photo.userPhoto.data">
-
-						</ion-img>
-					</ng-container>
-				</div>
 				<ion-textarea formControlName="description"
 					class="form-control"
 					rows="10"
 					type="text"
-					required><ion-icon (click)="selectImage()"
-					name="image-outline"></ion-icon>
+					cols="100"
+					required>
 				</ion-textarea>
+				<ion-icon (click)="selectImage()"
+					name="image-outline"></ion-icon>
 				<span *ngIf="mainForm.controls['description'].invalid &&
 				(mainForm.controls['description'].dirty || mainForm.controls['description'].touched)">
 					{{"mapa.description.required"|translate}}
 				</span>
 
 			</ion-item>
-			<ion-item class="itemform">
+			<ion-item class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
 				<ion-label position="floating"
 					class="lableclass">
 					{{ 'modal.place' | translate }}
@@ -76,7 +89,7 @@
 					type="text">
 				</ion-input>
 			</ion-item>
-			<ion-item class="itemform">
+			<ion-item class="itemform" [ngClass]="{'op-1': showImg, 'op-08':!showImg}">
 				<ion-label position="floating"
 					class="lableclass">
 					{{ 'modal.date.note' | translate }}

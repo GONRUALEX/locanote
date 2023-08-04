@@ -8,6 +8,8 @@ export const translationEsEs = {
     "notas.clear": "Eliminar notas",
     "notes.search.by.title": "Buscar por título",
     "notes.search.by.date": "Buscar por fecha",
+    "notas.not.photo": "No hay fotos en la nota",
+    "notas.not.date": "No hay fecha para esta nota",
 
     "mapa.title.required":"El título es requerido",
     "mapa.description.required":"La descripción es requerida",

@@ -26,7 +26,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'app-notas',
   templateUrl: 'notas.page.html',
   styleUrls: ['notas.page.scss'],
- /* animations: [
+  animations: [
     // KeyFrames
     trigger("activeTrigger", [
       // Estado inactivo
@@ -57,7 +57,7 @@ import { DomSanitizer } from '@angular/platform-browser';
           "0.5s"
         )
       )
-    ]),]*/
+    ]),]
 })
 export class NotasPage implements OnInit {
   public photos: Photos[] = [];
@@ -66,7 +66,7 @@ export class NotasPage implements OnInit {
   @ViewChild('popover') popover;
   findButton:boolean = false;
   dateForm: FormGroup;
-  //keyFrameState: string = "inactive";
+          keyFrameState: string = "inactive";
   findTitle: string = '';
   findDate: Date;
   dataInitial: Notes[] = [];
@@ -122,6 +122,9 @@ export class NotasPage implements OnInit {
 
   deleteNote(id) {
     this.db.deleteNote(id).then(async (res) => {
+      //delete
+    })
+    this.db.deletePhotos(id).then(async (res) => {
       //delete
     })
     this.db.getNotes();
@@ -194,11 +197,11 @@ export class NotasPage implements OnInit {
   }
 
   find() {
-    //this.keyFrameState = 'inactive';
+          this.keyFrameState = 'inactive';
 
     this.byTitle();
     this.byDate();
-   // setTimeout(() => { this.keyFrameState = 'active'; }, 500);
+           setTimeout(() => { this.keyFrameState = 'active'; }, 500);
 
   }
 
