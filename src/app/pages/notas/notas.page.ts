@@ -64,15 +64,15 @@ export class NotasPage implements OnInit {
   private PHOTO_STORAGE: string = 'photos';
   @ViewChild('list') list: IonList;
   @ViewChild('popover') popover;
-  findButton:boolean = false;
+  findButton: boolean = false;
   dateForm: FormGroup;
-          keyFrameState: string = "inactive";
+  keyFrameState: string = "inactive";
   findTitle: string = '';
   findDate: Date;
   dataInitial: Notes[] = [];
   data: Notes[] = []
   locale: string;
-  photoss:any[]=[];
+  photoss: any[] = [];
   constructor(
     private db: DataBaseService,
     public formBuilder: FormBuilder,
@@ -108,10 +108,10 @@ export class NotasPage implements OnInit {
         })
       }
     });
-    setTimeout(()=>{this.db.getNotes()},2000);
+    setTimeout(() => { this.db.getNotes() }, 2000);
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     console.log("ionviewvillenter")
     //this.db.getNotes();
   }
@@ -139,8 +139,8 @@ export class NotasPage implements OnInit {
 
   doRefresh(event: any): void {
     this.utils.presentLoading(this.translate.instant('notas.loading'));
-      this.db.getNotes();
-      event.target.complete();
+    this.db.getNotes();
+    event.target.complete();
   }
 
   async openModal(notes: Notes = {
@@ -197,11 +197,11 @@ export class NotasPage implements OnInit {
   }
 
   find() {
-          this.keyFrameState = 'inactive';
+    this.keyFrameState = 'inactive';
 
     this.byTitle();
     this.byDate();
-           setTimeout(() => { this.keyFrameState = 'active'; }, 500);
+    setTimeout(() => { this.keyFrameState = 'active'; }, 500);
 
   }
 
@@ -221,5 +221,5 @@ export class NotasPage implements OnInit {
     this.find();
   }
 
- 
+
 }

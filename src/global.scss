@@ -305,6 +305,14 @@ ion-datetime {
   width:100%;
 }
 
+ion-buttons{
+  height: 60px;  
+}
 
-
-
+.titleIon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+}

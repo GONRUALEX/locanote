@@ -167,8 +167,8 @@ export class DataBaseService {
   }
 
   async deletePhotos(id) {
-    let select = 'DELETE FROM photos WHERE idNotes = ?';
-    return await (this.storage.executeSql(select, [id]))
+    let select = id != -1 ? 'DELETE FROM photos WHERE idNotes = ?': 'DELETE FROM photos';
+    return await (id != -1 ? this.storage.executeSql(select, [id]) : this.storage.executeSql(select))
       .then(_ => {
         console.log("Deletes photos where idNotes "+id)
       }).catch(error => Promise.reject(error));

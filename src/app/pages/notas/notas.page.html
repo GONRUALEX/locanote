@@ -45,7 +45,7 @@
 				show-backdrop="false"
 				size="cover">
 				<ng-template>
-					<ion-datetime color="tertiary" (ionChange)="findByDate($event)"  show-default-buttons="true" show-default-time-label="false" [cancelText]="translate.instant('datetime.cancel')" [doneText]="translate.instant('datetime.suscess')" presentation="date" [locale]="locale" first-day-of-week="1" 
+					<ion-datetime color="danger" (ionChange)="findByDate($event)"  show-default-buttons="true" show-default-time-label="false" [cancelText]="translate.instant('datetime.cancel')" [doneText]="translate.instant('datetime.suscess')" presentation="date" [locale]="locale" first-day-of-week="1" 
 						formControlName="dateNote" ></ion-datetime>
 				</ng-template>
 			</ion-popover>
